@@ -16,7 +16,6 @@ const viewRouter = require('./routes/viewRoutes');
 
 const AppError = require(`./utils/appError`);
 const errorHandler = require('./controllers/errorController');
-const compression = require('compression');
 
 const app = express();
 app.set('view engine', 'pug');
@@ -67,7 +66,7 @@ app.use(
 );
 
 // Response compressor
-app.use(compression());
+app.use(compressor());
 
 // Routes
 app.use('/', viewRouter);
