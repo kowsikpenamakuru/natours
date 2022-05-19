@@ -147,7 +147,6 @@ exports.isLoggedIn = async (req, res, next) => {
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
-    console.log('Inside restrict to');
     if (!roles.includes(req.user.role)) {
       return next(
         new AppError('You are not authorized to perform this action', 403)
@@ -203,7 +202,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   // 2. If the token has not expired, and there is user, set the new password
   if (!user)
     return next(new AppError('Reset link has expired. please try again', 400));
-  console.log('After fetching the user');
+
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
   user.passwordResetToken = undefined;
@@ -222,7 +221,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
     password: newPassword,
     passwordConfirm: newPassConfirm,
   } = req.body;
-  console.log(currPassword, newPassword, newPassConfirm);
+
   // 1. Get user from the collection
   const user = await User.findById(req.user._id).select('+password');
 

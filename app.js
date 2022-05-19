@@ -7,6 +7,7 @@ const expmongosanitize = require('express-mongo-sanitize');
 const xssclean = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compressor = require('compression');
 const userRouter = require('./routes/userRoutes');
 const tourRouter = require('./routes/tourRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
@@ -15,6 +16,7 @@ const viewRouter = require('./routes/viewRoutes');
 
 const AppError = require(`./utils/appError`);
 const errorHandler = require('./controllers/errorController');
+const compression = require('compression');
 
 const app = express();
 app.set('view engine', 'pug');
@@ -63,6 +65,9 @@ app.use(
     whitelist: ['ratingsAverage', 'duration', 'maxGroupSize', 'price'],
   })
 );
+
+// Response compressor
+app.use(compressor());
 
 // Routes
 app.use('/', viewRouter);
