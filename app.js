@@ -67,7 +67,7 @@ app.use(
 );
 
 // Response compressor
-app.use(compressor());
+app.use(compression());
 
 // Routes
 app.use('/', viewRouter);
