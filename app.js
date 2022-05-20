@@ -8,6 +8,7 @@ const xssclean = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compressor = require('compression');
+const cors = require('cors');
 const userRouter = require('./routes/userRoutes');
 const tourRouter = require('./routes/tourRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
@@ -19,14 +20,18 @@ const errorHandler = require('./controllers/errorController');
 
 const app = express();
 
+// Global Middlewares
+
+// Implement CORS; Access-Control-Allow_Origin:  *
+app.use(cors());
+app.options('*', cors());
+
 // trust proxies
 app.enable('trust proxy');
 
 // initialize pug engine
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
-
-// Global Middlewares
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
