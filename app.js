@@ -18,6 +18,11 @@ const AppError = require(`./utils/appError`);
 const errorHandler = require('./controllers/errorController');
 
 const app = express();
+
+// trust proxies
+app.enable('trust proxy');
+
+// initialize pug engine
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
